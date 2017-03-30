@@ -8,7 +8,7 @@ CFLAGS = $(CWARN) $(OPT) $(CSTD)
 BINARY = Tarea1
 
 all: main.o anagramas.o
-	$(CC) -o $(BINARY) $< $(CLIBS)
+	$(CC) -o $(BINARY) $^ $(CLIBS)
 	
 main.o: main.c
 	$(CC) -c $< -o $@ $(CFLAGS)
@@ -16,6 +16,14 @@ main.o: main.c
 anagramas.o: anagramas.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 #	$(CC) -c anagramas.c -o anagramas.o $(CFLAGS) 
+debug: mainG.o anagramasG.o
+	$(CC) -o $(BINARY) $^ $(CLIBS) -g
+	
+mainG.o: main.c
+	$(CC) -c $< -o $@ $(CWARN) $(CSTD) -g
 
+anagramasG.o: anagramas.c
+	$(CC) -c $< -o $@ $(CWARN) $(CSTD) -g
+	
 clean:
 	rm *.o *.gch $(BINARY) || true
