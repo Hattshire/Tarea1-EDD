@@ -32,7 +32,6 @@ main( void )
     int counts[2];
     
     // Procesar el archivo
-    strings[l] = ( char* ) malloc ( MAXSTRSIZE * sizeof( char ));
     while ( ( fscanf ( Fstrings, "%d\n", &counts[c] ) && c++ <= 2 && (l--)+2 ) || ( fscanf ( Fstrings, "%s\n", strings[l] ) ) )
     {           
         // Verificar si el array tiene espacio suficiente para los proximos elementos
