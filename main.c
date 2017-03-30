@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include "anagramas.h"
 
+#ifndef MAXSTRSIZE
 #define MAXSTRSIZE 100
+#endif
 
 int
 main( void )
@@ -31,9 +33,7 @@ main( void )
     
     // Procesar el archivo
     strings[l] = ( char* ) malloc ( MAXSTRSIZE * sizeof( char ));
-    while ( 
-        !!( fscanf ( Fstrings, "%d\n", &counts[c] ) && c++ <= 2 && (l--)+2 ) ||
-         ( fscanf ( Fstrings, "%s\n", strings[l] ) ) )
+    while ( ( fscanf ( Fstrings, "%d\n", &counts[c] ) && c++ <= 2 && (l--)+2 ) || ( fscanf ( Fstrings, "%s\n", strings[l] ) ) )
     {           
         // Verificar si el array tiene espacio suficiente para los proximos elementos
         if ( l == n )
@@ -44,20 +44,26 @@ main( void )
             // TODO: Evitar el sobrellenado de memoria
         }
         
-        // Si ya se obtubieron los strings a comparar, empezar a compararlos
-        if ( c == 2 && l == counts[0] )
+        if (c == 2 && l < counts[0]) // Si se obtubieron los strings a comparar, pero no el de comparacion, alojar espacio
         {
-            printf ( "\nComparando string %s\n", strings[l] );
+            // Alojar la string de comparacion
+            l++;
+            strings[l] = ( char* ) malloc ( MAXSTRSIZE * sizeof( char ));
+        }
+        else if ( c == 2 && l == counts[0] ) // Si ya se obtubieron los strings a comparar, empezar a compararlos
+        {
+            printf ( "\33[2KComparando string %s", strings[l] );
             anagramas ( strings, l+1, strings[l] );
         }
-        else if ( feof( Fstrings ) ) 
+        else if ( feof( Fstrings ) ) // Si ya no hay mas strings para comparar, dejar de leer el archivo
         {
             break;
         }
-        else
+        else // Si todavia estamos leyendo strings a comparar, mostrarlas mientras se leen
         {
-            if ( l >= 0 )
-                printf( "%d, %s", l+1, strings[l] );
+            if ( l >= 0 ) // Solo si ya leimos el primer contador, mostrar la string leida actualmente
+                printf( "\33[2K%d, %s", l+1, strings[l] );
+            // Alojar la siguiente string
             l++;
             strings[l] = ( char* ) malloc ( MAXSTRSIZE * sizeof( char ));
         }
@@ -65,7 +71,7 @@ main( void )
     
     // Cerrar el archivo
     fclose( Fstrings );
-    printf( "\nAdios~\n" );
+    printf( "\33[2KAdios~\n" );
     
     // Retorno exitoso
     return EXIT_SUCCESS;
