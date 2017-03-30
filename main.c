@@ -6,7 +6,11 @@ main( void )
 {
     // Abrir archivo strings.txt
     FILE * Fstrings = fopen( "strings.txt", "r" );
-    // TODO: verificar existencia del archivo
+    if ( !Fstrings )
+    {
+        printf( "No se encontro el archivo strings.txt" );
+        exit( EXIT_FAILURE );
+    }
     
     // Declarar e inicializar contadores
     // n = tamanyo del array strings
@@ -21,7 +25,7 @@ main( void )
     int counts[2];
     
     // Procesar el archivo
-    while ( fscanf( Fstrings, "%s", strings[l] ) || ( fscanf( Fstrings, "%d", counts[c] ) && c++ < 2 && l-- ) )
+    while ( fscanf( Fstrings, "%s", strings[l] ) || ( fscanf( Fstrings, "%d", &counts[c] ) && c++ < 2 && l-- ) )
     {
         l++;
         // Verificar si el array tiene espacio suficiente para los proximos elementos
