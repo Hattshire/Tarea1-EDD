@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "anagramas.h"
 
 #ifndef MAXSTRSIZE
