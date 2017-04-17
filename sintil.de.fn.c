@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include <ctype.h>
 void
 sintilde(char* palabra)
 {
-        printf( "> " );
         for ( int j = 0, k = 0 ;palabra[j] != 0  ; j++, k++ )
         {
             if ( palabra[j] == '\303' )

@@ -52,8 +52,7 @@ main( void )
         }
         else if ( c == 2 && l == counts[0] ) // Si ya se obtubieron los strings a comparar, empezar a compararlos
         {
-            printf ( "\33[2KComparando string %s", strings[l] );
-            anagramas ( strings, l+1, strings[l] );
+            printf ( "Comparada string %s: %d anagrama encontrado\n------------------\n\n", strings[l], anagramas ( strings, l, strings[l] ));
         }
         else if ( feof( Fstrings ) ) // Si ya no hay mas strings para comparar, dejar de leer el archivo
         {
@@ -62,7 +61,7 @@ main( void )
         else // Si todavia estamos leyendo strings a comparar, mostrarlas mientras se leen
         {
             if ( l >= 0 ) // Solo si ya leimos el primer contador, mostrar la string leida actualmente
-                printf( "\33[2K%d, %s", l+1, strings[l] );
+                printf( "%d, %s\n", l+1, strings[l] );
             // Alojar la siguiente string
             l++;
             strings[l] = ( char* ) malloc ( MAXSTRSIZE * sizeof( char ));
@@ -71,7 +70,7 @@ main( void )
     
     // Cerrar el archivo
     fclose( Fstrings );
-    printf( "\33[2KAdios~\n" );
+    printf( "Adios~\n" );
     
     // Retorno exitoso
     return EXIT_SUCCESS;

@@ -13,6 +13,7 @@ int anagramas( char **S, int n, char *str )
         sintilde(S[i]);
         sintilde(str);
         
+        printf("Comparando %s con %s: %d\n", str, S[i], strcmp( S[i], str ));
         if ( !strcmp( S[i], str ) ) cuenta++;
     }
     return cuenta;
